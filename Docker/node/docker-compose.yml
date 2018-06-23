@@ -1,0 +1,26 @@
+# Contiene NODE + MYSQL + PHPMYADMIN
+
+node:
+  build: .
+  ports:
+    - '4000:4000'
+  volumes:
+    - .:/usr/src/app
+mysql:
+  build: ./docker/mysql/
+  ports:
+    - '3306:3306'
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: alvear
+    MYSQL_USER: agustin
+    MYSQL_PASSWORD: agustin
+  volumes:
+    - /data/:/var/lib/mysql
+
+# Indicaciones !
+
+# Con build indicamos que imagen de Dockerfile tiene que utilizar. Con la notación . leerá el fichero Dockerfile de directorio principal.
+# Con ports exponemos fuera del contenedor el puerto que está utilizando la aplicación.
+# Con command indicamos que comando tiene que ejecutarse al correr el contenedor. Ej: command: sh -c 'npm install; npm start'
+# Con volumes nos permite enlazar un directorio local con un directorio dentro del contenedor. En este caso, el directorio app donde está definido el código de la aplicación, lo enlazamos con app dentro del contenedor. Este es el directorio de trabajo que ya definimos con WORKDIR en el fichero Dockerfile.
