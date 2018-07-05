@@ -1,0 +1,22 @@
+# Trae la imagen de la comunidad: https://hub.docker.com:
+FROM node:carbon
+
+# Agrego Autor:
+MAINTAINER Agustin Gonzalez agonzalezcollins@gmail.com version: 0.1
+
+# Especifico el directorio de la aplicacion:
+WORKDIR ~/Proyectos/pfc-utn/webservice
+
+# Instala las dependencias de la Aplicacion (package.json AND package-lock.json):
+COPY package*.json ./
+
+# Instalo npm en la imagen node:carbon (Si es para produccion cambiar por "RUN npm install --only=production"):
+RUN npm install
+
+# Agrego el codigo de la aplicacion: COPY RUTA_PROYECTO 
+
+# Abro el puerto por defecto para la conexion
+EXPOSE 8080
+
+# Levanto "npm" cuando se crea el contenedor
+CMD [ "npm", "start"]

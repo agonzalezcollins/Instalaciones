@@ -1,0 +1,39 @@
+# Trae la imagen de la comunidad: https://hub.docker.com:
+FROM mysql
+
+# Agrego Autor:
+MAINTAINER Agustin Gonzalez agonzalezcollins@gmail.com version: 0.1
+
+# Install requirement (wget)
+RUN apt-get -y update
+
+ENV MYSQL_ROOT_PASSWORD=$db_root_pw
+ENV MYSQL_DATABASE=$db_name
+ENV MYSQL_USER=$db_username
+ENV MYSQL_PASSWORD=$db_pw
+ 
+# Crea un destino backup
+RUN mkdir -p /backup/utn-pfc
+ 
+# Permite montar el directorio backup
+VOLUME ["/backup/utn-pfc"]
+
+EXPOSE 3306
+
+CMD ["mysqld"] 
+
+
+# PHPMYADMIN
+# docker run --name myadmin -d --link mysql_db_server:db -p 8080:80 phpmyadmin/phpmyadmin
+
+
+#FROM debian:jessie 
+#RUN apt-get -qq update && apt-get -qqy upgrade 
+#RUN apt-get -qy install mysql-client mysql-server 
+#RUN apt-get -q autoclean && rm -rf /var/lib/apt/lists/* 
+#RUN sed -i "s/^bind-address/#bind-address/" /etc/mysql/my.cnf 
+#VOLUME /var/lib/mysql 
+#COPY scripts/docker-entrypoint.sh /usr/local/bin/ 
+#RUN chmod a+x /usr/local/bin/docker-entrypoint.sh 
+#RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat 
+#ENTRYPOINT ["docker-entrypoint.sh"] 

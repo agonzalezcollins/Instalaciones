@@ -1,1 +1,0 @@
-echo "Descargar Docker ToolBox - Desde: https://docs.docker.com/toolbox/toolbox_install_windows/"

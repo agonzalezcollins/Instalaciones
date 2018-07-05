@@ -1,0 +1,22 @@
+# Trae la imagen de la comunidad: https://hub.docker.com:
+FROM python
+
+# Agrego Autor:
+MAINTAINER Agustin Gonzalez agonzalezcollins@gmail.com version: 0.1
+
+# Especifico el directorio donde trabajara la aplicacion:
+WORKDIR /code
+
+# Agrego el codigo de la aplicacion:
+ADD . ./
+
+# Instalo los requerimientos con pip:
+RUN pip install -r package.txt
+
+# Abro el puerto por defecto para la conexion
+EXPOSE 8085
+
+# Levanto "python" con la "app" cuando se crea el contenedor
+CMD ["python", "app.py"]
+
+

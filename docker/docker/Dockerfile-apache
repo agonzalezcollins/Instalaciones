@@ -1,0 +1,22 @@
+# Trae la imagen de la comunidad: https://hub.docker.com:
+FROM ubuntu:16.04
+
+# Agrego Autor:
+MAINTAINER Agustin Gonzalez agonzalezcollins@gmail.com version: 0.1
+
+# Especifico el directorio de la aplicacion:
+WORKDIR ~/Proyectos/pfc-utn/webservice
+
+# Instalo apache2 en la imagen ubuntu:16.04 :
+RUN apt-get update && apt-get install -y apache2 && apt-get clean 
+
+# Agrego el codigo de la aplicacion: COPY RUTA_PROYECTO /var/www/html
+
+# Variales de entorno
+ENV APACHE_RUN_USER www-data
+
+# Abro el puerto por defecto para la conexion
+EXPOSE 8080
+
+# Levanto "apache2" cuando se crea el contenedor
+CMD [“usr/sbin/apache2”, “-D”, “FOREGROUND”]
