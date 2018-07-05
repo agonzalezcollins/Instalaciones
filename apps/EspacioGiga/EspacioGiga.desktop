@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=EspacioGiga
+GenericName=Web Browser
+Comment=TV          
+Exec=/opt/google/chrome/google-chrome https://cua.gigared.com.ar/
+Terminal=false
+Icon=/usr/share/applications/myicons/EspacioGiga.ico
+Type=Application
+Categories=Network;WebBrowser;Favorites;
+MimeType=text/html;text/xml;application/xhtml_xml;x-scheme-handler/http;x-schem$
+X-Ayatana-Desktop-Shortcuts=NewWindow;NewIncognito
+

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Icon=/home/gonzalez2/Aplicaciones/Netflix/netflix.png
+Icon[es_AR]=netflix
+Terminal=false
+Exec=/usr/bin/google-chrome-stable https://www.netflix.com/
+Name[es_AR]=NetFlix
+Name=Netflix
