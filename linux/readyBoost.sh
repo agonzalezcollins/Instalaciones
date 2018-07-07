@@ -1,12 +1,6 @@
-# Linux
-Comandos de utiles de linux
+#!/usr/bin/env bash
 
-
-
-ReadyBoost (Swap)
-------------------
-
-Crear una partición SWAP en la memoria y darle una prioridad altísima para que la utilice como si fuera una extensión de la RAM física. 
+Crear una partición SWAP en la memoria y darle una prioridad altísima para que la utilice como si fuera una extensión de la RAM física.
 
 - Innsertamos la memoria flash (pendrive, SD, lo que sea)
 

@@ -31,12 +31,20 @@ list_aplicacion() {
     sudo apt update
     sudo apt install ubuntu-make
     umake android
+
+    # Agregar a /opt
+    sudo cp -rd android-studio/ /opt/
+    nano ~/.local/share/applications/androidstudio.desktop
+    sudo ln -sf /opt/android-studio/bin/studio.sh /usr/local/bin/androidstudio
 }
 
 descargar_aplicacion() {
     echo "Descargar Android https://developer.android.com/sdk/index.html"
     echo "Se puede descargar chequeando la nueva version: wget https://dl.google.com/dl/android/studio/ide-zips/3.1.3.0/android-studio-ide-173.4819257-linux.zip"
     sudo unzip android-studio-ide-* -d /opt
+        sudo cp -rd android-studio/ /opt/
+nano ~/.local/share/applications/androidstudio.desktop
+sudo ln -sf /opt/android-studio/bin/studio.sh /usr/local/bin/androidstudio
 }
 
 opciones() {
@@ -72,5 +80,4 @@ sudo apt-get install oracle-java8-installer
 sudo apt-get install oracle-java8-set-default
 opciones
 sudo cp androidstudio.desktop ~/.local/share/applications/androidstudio.desktop
-
 

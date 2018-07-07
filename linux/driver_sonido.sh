@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 sudo aptitude install build-essential libncurses-dev gettext xmlto xmltoman linux-headers-`uname -r`
 
 HDA-Intel - HDA Intel PCH
