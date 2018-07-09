@@ -1,0 +1,11 @@
+# Instalacion
+
+npm install -g cordova ionic
+ionic start <myApp> tabs // Ejemplo: ionic start superalvear sidemenu --v2 --appname "Super Alvear" --id "com.mysystemsite.superalvearapp" --ts
+cd <myApp>
+ionic serve
+
+---------------------------------------------------------
+# Configuracion:
+
+ionic link
