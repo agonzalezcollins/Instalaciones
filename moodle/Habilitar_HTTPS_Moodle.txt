@@ -1,0 +1,98 @@
+Habilitar HTTPS en Moodle
+
+En esta ocasión vamos a describir cómo configurar HTTPS con Moodle.
+Ello nos llevará a utlizar un certificad SSL firmado por nosotros mismos, configurarlo en Apache y habilitarlo en Moodle.
+
+Antes de comenzar...
+
+Podemos utilizar HTTPS en Moodle para la etapa de login(entrar) o para toda la sesión.
+
+La primera significa que al realizarse el login se establecerá una sesión https, similar a cuando nos logeamos por Webmail en Gmail, Yahoo, Hotmail, etc. donde de una conección http se pasa a un conección https. Finalizado este proceso de login y validados los datos, se ingresa a la cuenta y se vuelve a una conección http.
+
+La segunda significa que desde el proceso de login hasta el cierra de sesión con logout(salir) se permanece bajo una conección segura https. Todo lo que se transfiere entre el servidor y el cliente se mantiene cifrado.
+Como desventaja puntual podemos mencionar que el navegador(cliente) no podrá utilizar la cache producto de la conección https que cifra cada página del sitio de forma única, insumiendo así mayor ancho de banda por conección entre el cliente y servidor.
+
+Según el sitio de Moodle, se señala los siguiente acerca del Rendimiento del Servidor:
+"... Observe que usar conexiones web seguras (https ante http) lleva consigo un trabajo más intenso, tanto para el servidor como para el cliente - especialmente porque el sistema de /caché/ no se puede utilizar con la misma eficacia, y el número de peticiones a ficheros aumenta drásticamente. Por esa razón, no es recomendable usar https para todas las páginas Moodle. Puede activar https para la pantalla de identificación de usuarios, simplemente desde la página de configuración de Moodle... "
+
+En mi caso particular...
+
+He optado por utilizar HTTPS sólo para el proceso de login(entrar) y luego permanecer en una conección por HTTP.
+
+Paso 1: Generar el certificado
+a) Requerimos generar los certificados que firmaremos nosotros mismos, para ello, en una terminal ejecutar
+
+openssl req -new -x509 -days 365 -nodes -out httpd.pem -keyout httpd.key
+
+
+b) luego mover los archivos a
+
+mv httpd.pem /etc/pki/tls/certs/httpd.pem   (C:\xampp\ssl\httpd.pem)
+mv httpd.key /etc/pki/tls/private/httpd.key  (C:\xampp\ssl\httpd.key)
+
+
+Paso 2: Configurar el archivo SSL de Apache
+En archivo /etc/httpd/conf.d/ssl.conf (C:\xampp\apache\conf\extra\httpd-ssl.conf | C:\xampp\apache\conf\original\extra\httpd-ssl.conf ) modificar los parámetros SSLCertificateFile y SSLCertificateKeyFile con los siguentes valores:
+
+SSLCertificateFile /etc/pki/tls/certs/httpd.pem  (C:\xampp\ssl\httpd.pem)
+
+SSLCertificateKeyFile /etc/pki/tls/private/httpd.key (C:\xampp\ssl\httpd.key)
+ 
+
+Paso 3: Configurar los hosts virtuales
+
+a) modifcar el archivo /etc/httpd/conf.d/moodle.conf (C:\xampp\apache\conf\httpd.conf)
+
+NameVirtualHost *:443
+
+SSLEngine On
+SSLOptions +StrictRequire
+SSLCertificateFile /etc/pki/tls/certs/httpd.pem
+SSLCertificateKeyFile /etc/pki/tls/private/httpd.key
+...
+DocumentRoot /var/www/vhosts/moodle
+ServerName tu-sitio.com
+ErrorLog /var/log/httpd/error443.log
+
+...
+
+...
+
+
+b) Reiniciar Apache
+service httpd restart
+
+Paso 4: Habilitar HTTPS en Moodle
+Agregar la siguiente línea al archivo de configuración /var/www/vhosts/moodle/config.php
+
+$CFG->loginhttps=true;
+
+Nota 1: en caso de querer deshabilitar https asignar: "$CFG->loginhttps=false;".
+Nota 2: otra forma de realizar esta configuración es ingresando a tu plataforma Moodle con un usuario adminisitrador y habilitar en bloque de Administración del sitio->Seguridad HTTP->Usar HTTPS para accesos.
+
+
+Paso 5: Verificar
+
+Nuestro Apache tiene que estar escuchando en el puerto 443 (además del puerto 80), para verficarlo podemos ejecutar en una terminal:
+netstat -nat
+
+y debiéramos poder visualizar:
+
+tcp 0 0 :::80 :::* LISTEN
+tcp 0 0 :::443 :::* LISTEN
+
+Luego, visitar nuestro sitio http://tu-sitio.com
+y a continuación click en login(entrar) que debe dirigirnos a https://tu-sitio.com/login...
+
+Cada cliente(navegador) que visite el sitio para poder ingresar efectivamente, deberá obtener el certificado manualmente.
+Para Firefox, en la Fig 1, hacer click en "Agregar excepción..." y luego en "Confirmar excepción de seguridad"
+
+En caso de error
+a) verifica los puertos habilitados 80 y 443 en el servidor y firewall(s).
+b) También verifica la configuración de los archivos de Apache (SSL ERROR: ssl_error_rx_record_too_long)
+
+Cualquier configuración incorrecta en a) y/o b) puede inducir al siguente mensaje que se mostrará en el navegador
+
+Nota Final:
+Si deseamos que Moodle mantenga toda la sesión en HTTPS, entonces modificar la siguiente línea en el archivo /var/www/vhosts/moodle/config.php (cambiar http por https)
+$CFG->wwwroot = 'https://tu-sitio.com';
