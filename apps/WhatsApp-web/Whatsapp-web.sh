@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 sudo cp /usr/share/applications/google-chrome.desktop /usr/share/applications/WhatsApp-Web.desktop
 sudo pluma /usr/share/applications/WhatsApp-Web.desktop
 
