@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Redis Desktop Manager
+GenericName=Gestor Base de Datos
+Comment=Redis Desktop Manager
+Exec=/snap/bin/redis-desktop-manager.rdm
+Terminal=false
+Icon=/snap/redis-desktop-manager/current/usr/share/pixmaps/rdm.png
+Type=Application
+Categories=Network;Favorites;

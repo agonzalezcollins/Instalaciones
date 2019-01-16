@@ -1,0 +1,6 @@
+rasa-core~=0.12.0
+numpy==1.14.0
+setuptools==39.1.0
+
+
+#duckling==1.7.3

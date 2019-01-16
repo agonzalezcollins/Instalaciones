@@ -23,6 +23,6 @@ Exec=/usr/bin/google-chrome-stable https://web.whatsapp.com/
 Name=Nueva ventana de Incognito
 Exec=/usr/bin/google-chrome-stable --incognito https://web.whatsapp.com/
 
-sudo mkdir /usr/share/applications/myicons/
+sudo mkdir -p /usr/share/applications/myicons/
 cd /usr/share/applications/myicons/
 sudo wget http://icons.veryicon.com/ico/System/Circle/whatsapp.ico

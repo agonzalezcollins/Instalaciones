@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Robomongo
+GenericName=Gestor Base de Datos
+Comment=Robomongo
+Exec=/usr/local/bin/robomongo/bin/robo3t
+Terminal=false
+Icon=/usr/share/applications/myicons/robomongo.png
+Type=Application
+Categories=Network;Favorites;

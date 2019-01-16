@@ -1,0 +1,10 @@
+rasa_nlu~=0.13.0
+numpy==1.14.0
+setuptools==39.1.0
+tensorflow==1.10.0
+
+#sklearn_crfsuite
+#sklearn
+
+#duckling
+#spacy
